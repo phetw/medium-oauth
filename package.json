@@ -1,0 +1,25 @@
+{
+  "name": "medium-oauth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rappad/medium-oauth.git"
+  },
+  "author": "Wasuwat Limsuparhat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rappad/medium-oauth/issues"
+  },
+  "homepage": "https://github.com/rappad/medium-oauth#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  }
+}
