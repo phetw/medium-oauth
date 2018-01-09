@@ -31,7 +31,7 @@ app.get('/getAccessToken', (req, res) => {
             client_id: '5425e5ae4e52',
             client_secret: '65f35242d392cc32a695e2ba98e575fee7079cd3',
             grant_type: 'authorization_code',
-            redirect_uri: 'http://127.0.0.1:3000'
+            redirect_uri: 'http://127.0.0.1:4200/login'
         }
     }, (err, httpResponse, body) => {
         res.send(body);
