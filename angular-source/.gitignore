@@ -8,12 +8,6 @@
 # dependencies
 /node_modules
 
-# buildt folder
-/public
-
-# secret api keys
-/angular-source/src/environments
-
 # IDEs and editors
 /.idea
 .project
