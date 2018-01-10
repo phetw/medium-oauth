@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     },
     { path: 'login', component: LoginComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'publication/:userId', component: PublicationsComponent },
+    { path: 'publications', component: PublicationsComponent },
 ];
 
 export const AppRouter = RouterModule.forRoot(appRoutes);
