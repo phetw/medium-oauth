@@ -9,19 +9,52 @@ import { PublicationsComponent } from './component/publications/publications.com
 
 import { AppRouter } from './route/route';
 
+// Services
+import { AuthService } from './service/auth.service';
+import { ProfileService } from './service/profile.service';
+import { PublicationService } from './service/publication.service';
+
+import { AuthGuard } from './guard/auth.guard';
+
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatListModule,
+} from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ProfileComponent,
-    PublicationsComponent
+    PublicationsComponent,
   ],
   imports: [
     AppRouter,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthService,
+    ProfileService,
+    PublicationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
