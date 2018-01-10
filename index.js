@@ -44,7 +44,7 @@ app.get('/getUserDetail', (req, res) => {
         url: 'https://api.medium.com/v1/me',
         headers: {
             // Dynamic
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+            'Authorization': req.get('Authorization'),
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
@@ -55,9 +55,16 @@ app.get('/getUserDetail', (req, res) => {
 })
 
 app.get('/listPublications', (req, res) => {
+    // 1af639ff52d2f8e1aa52ee42b42e211a6f5a2d05dadf2a0ef8991173bd4f6075f
     request.get({
         // Dynamic
-        url: 'https://api.medium.com/v1/users/1af639ff52d2f8e1aa52ee42b42e211a6f5a2d05dadf2a0ef8991173bd4f6075f/publications',
+        url: 'https://api.medium.com/v1/users/' + req.get('user_id') + '/publications',
+        headers: {
+            // Dynamic
+            'Authorization': req.get('Authorization'),
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     }, (err, httpResponse, body) => {
         res.send(body);
         console.log(body);
