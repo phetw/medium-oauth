@@ -11,7 +11,6 @@ import { AppRouter } from './route/route';
 
 // Services
 import { AuthService } from './service/auth.service';
-import { ProfileService } from './service/profile.service';
 import { PublicationService } from './service/publication.service';
 
 import { AuthGuard } from './guard/auth.guard';
@@ -52,7 +51,6 @@ import {
   providers: [
     AuthGuard,
     AuthService,
-    ProfileService,
     PublicationService
   ],
   bootstrap: [AppComponent]
