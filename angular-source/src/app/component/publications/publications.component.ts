@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PublicationService } from '../../service/publication.service';
 
 @Component({
   selector: 'app-publications',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PublicationsComponent implements OnInit {
 
-  constructor() { }
+  publications: any;
 
-  ngOnInit() {
+  constructor(
+    public publicationSerice: PublicationService
+  ) {
   }
 
+  ngOnInit() {
+    this.publicationSerice.getPublications();
+    this.publications = JSON.parse(localStorage.getItem('publicationsList'));
+  }
 }
