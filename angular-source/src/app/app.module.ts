@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -16,6 +17,8 @@ import { PublicationService } from './service/publication.service';
 import { AuthGuard } from './guard/auth.guard';
 
 import {
+  MatToolbarModule,
+  MatMenuModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -26,6 +29,7 @@ import {
   MatIconModule,
   MatListModule,
 } from '@angular/material';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +37,15 @@ import {
     LoginComponent,
     ProfileComponent,
     PublicationsComponent,
+    NavbarComponent,
   ],
   imports: [
     AppRouter,
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatMenuModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
