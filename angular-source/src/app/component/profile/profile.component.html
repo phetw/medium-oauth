@@ -1,11 +1,7 @@
-<div class="card">
-  <img [src]="profile.imageUrl" [alt]="img" style="width:100%">
-  <h3>{{profile.name}}</h3>
-  <div style="padding-bottom:1.5em;">
-    <a href="#" class="title">{{profile.username}}</a>
-  </div>
-  <div>
-    <button class="publication" (click)="listPublications()">List publications</button>
-    <button class="logout" (click)="logout()">Logout</button>
-  </div>
-</div>
+<mat-card class="card-alignment">
+  <img mat-card-image [src]="profile.imageUrl" [alt]="img">
+  <mat-card-title>{{profile.name}}</mat-card-title>
+  <mat-card-subtitle>
+    <a href="{{profile.url}}" target="_blank" class="title">@{{profile.username}}</a>
+  </mat-card-subtitle>
+</mat-card>

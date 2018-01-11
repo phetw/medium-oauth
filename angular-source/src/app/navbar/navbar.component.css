@@ -1,0 +1,20 @@
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  background: #02B875;
+  color: aliceblue;
+  font-weight: 300;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100% !important;
+  -webkit-box-shadow: 0 1px 8px 0px #999;
+  -moz-box-shadow: 0 1px 8px 0px #999;
+  box-shadow: 0 1px 8px 0px #999;
+  /* box-shadow: 0 2px 1px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
+}

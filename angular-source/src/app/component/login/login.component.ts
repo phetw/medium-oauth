@@ -14,42 +14,43 @@ export class LoginComponent implements OnInit {
   scope = 'basicProfile,listPublications';
   // tslint:disable-next-line:max-line-length
   REQUEST_TEMP_AUTH_CODE_API = 'https://medium.com/m/oauth/authorize?' + 'client_id=' + environment.API_SECRET.clientId + '&scope=' + this.scope + '&state=state&response_type=code&redirect_uri=' + environment.redirectUri;
-  temporaryAuthCode: string;
+  urlContainsTempCode: Boolean = false;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
-  ngOnInit() {
-    if (!this.temporaryAuthCode) {
-      console.log('There is no access token');
-      this.extractTemporaryCode();
-      this.authService.requestAccessToken(this.temporaryAuthCode);
 
-      if (localStorage.getItem('currentUser')) {
-        this.router.navigate(['/profile']);
-      }
+
+  ngOnInit() {
+    this.checkIfUrlContainsTempCode();
+
+    if (this.urlContainsTempCode) {
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.authService.requestAccessToken(params['code']).subscribe(accessToken => {
+          this.authService.getUserProfile(accessToken).subscribe((user) => {
+            this.router.navigate(['/publications']);
+          });
+        });
+      });
     } else {
-      this.router.navigate(['/profile']);
+      // Do nothing until user sign in with Medium
     }
   }
 
-  extractTemporaryCode() {
+  checkIfUrlContainsTempCode() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.temporaryAuthCode = params['code'];
+      if (params['code']) {
+        this.urlContainsTempCode = true;
+      }
     });
   }
 
   askMediumPermission() {
-    // TODO : Check if access_token already exist
     const parentWindow = window.open(this.REQUEST_TEMP_AUTH_CODE_API, '_blank');
-    // TODO : close child window
     window.close();
   }
-
-
-
 }

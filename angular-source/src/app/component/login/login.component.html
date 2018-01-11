@@ -1,7 +1,8 @@
-<div class="login-page">
-  <div class="form">
-    <form class="login-form">
-      <button (click)="askMediumPermission()">Sign in with Medium</button>
-    </form>
-  </div>
-</div>
+<mat-card class="card-alignment">
+  <img mat-card-image src="http://pluspng.com/img-png/medium-logo-png-medium-logo-black-transparent-1600.png" [alt]="img">
+  <mat-card-content>
+    <div class="btn-container">
+      <button mat-button class="login-btn" (click)="askMediumPermission()">Sign in with Medium</button>
+    </div>
+  </mat-card-content>
+</mat-card>
