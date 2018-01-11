@@ -1,7 +1,11 @@
 <div *ngFor="let publication of publications" class="divider">
   <mat-card>
-    <mat-card-title>{{publication.name}}</mat-card-title>
-    <mat-card-subtitle>Subtitle</mat-card-subtitle>
-    <mat-card-content>Content</mat-card-content>
+    <mat-card-header>
+      <img mat-card-avatar [src]="publication.imageUrl" alt="">
+      <mat-card-title>
+        <a href="{{publication.url}}" target="_blank">{{publication.name}}</a>
+      </mat-card-title>
+      <mat-card-subtitle>{{publication.description}}</mat-card-subtitle>
+    </mat-card-header>
   </mat-card>
 </div>
