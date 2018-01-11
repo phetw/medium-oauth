@@ -30,11 +30,8 @@ export class LoginComponent implements OnInit {
 
     if (this.urlContainsTempCode) {
       this.activatedRoute.queryParams.subscribe(params => {
-        console.log('requesting at');
         this.authService.requestAccessToken(params['code']).subscribe(accessToken => {
-          console.log('access token is here ' + JSON.stringify(accessToken));
           this.authService.getUserProfile(accessToken).subscribe((user) => {
-            console.log('profile is here ' + JSON.stringify(user));
             this.router.navigate(['/publications']);
           });
         });
@@ -47,10 +44,7 @@ export class LoginComponent implements OnInit {
   checkIfUrlContainsTempCode() {
     this.activatedRoute.queryParams.subscribe(params => {
       if (params['code']) {
-        console.log('url contains code');
         this.urlContainsTempCode = true;
-      } else {
-        console.log('url does not contain code');
       }
     });
   }

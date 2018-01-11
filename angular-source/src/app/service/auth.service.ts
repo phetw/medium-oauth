@@ -18,7 +18,6 @@ export class AuthService {
   requestAccessToken(code) {
     return this.http.get(environment.API_BASE_URL + '/getAccessToken?code=' + code).map((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res));
-      console.log('accessToken ', localStorage.getItem('accessToken'));
       return res;
     });
   }
@@ -30,7 +29,6 @@ export class AuthService {
           .set('Authorization', 'Bearer ' + accessToken.access_token)
       }).map((res) => {
         localStorage.setItem('userProfile', JSON.stringify(res));
-        console.log('userProfile ', localStorage.getItem('userProfile'));
         return res;
       });
   }
