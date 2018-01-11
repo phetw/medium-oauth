@@ -46,6 +46,8 @@ export class AuthService {
 
   logout() {
     // Clearing localStorage
+
+    this.router.navigate(['/login']);
     localStorage.removeItem('currentUser');
     localStorage.removeItem('userProfile');
     localStorage.removeItem('publicationsList');
