@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService
   ) {
     if (JSON.parse(localStorage.getItem('userProfile'))) {
-      this.profile = JSON.parse(localStorage.getItem('userProfile'));
+      this.profile = JSON.parse(localStorage.getItem('userProfile')).data;
     }
   }
 

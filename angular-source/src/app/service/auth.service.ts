@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-  access_token: string;
   user_profile: string;
 
   constructor(
@@ -18,9 +17,7 @@ export class AuthService {
 
   requestAccessToken(code) {
     this.http.get(environment.API_BASE_URL + '/getAccessToken?code=' + code).subscribe((res) => {
-      this.access_token = JSON.stringify(res.access_token);
-
-      if (this.access_token) {
+      if (res) {
         localStorage.setItem('currentUser', JSON.stringify(res));
         console.log('currentUser ', localStorage.getItem('currentUser'));
         this.getUserProfile();
@@ -38,10 +35,10 @@ export class AuthService {
         headers: new HttpHeaders()
           .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('currentUser')).access_token)
       }).subscribe(res => {
-        this.user_profile = JSON.stringify(res.data);
+        this.user_profile = JSON.stringify(res);
 
         if (this.user_profile) {
-          localStorage.setItem('userProfile', JSON.stringify(res.data));
+          localStorage.setItem('userProfile', JSON.stringify(res));
           console.log('userProfile ', localStorage.getItem('userProfile'));
         }
       });
@@ -49,8 +46,8 @@ export class AuthService {
 
   logout() {
     // Clearing localStorage
-    this.access_token = null;
     localStorage.removeItem('currentUser');
     localStorage.removeItem('userProfile');
+    localStorage.removeItem('publicationsList');
   }
 }

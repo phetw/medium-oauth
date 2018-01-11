@@ -12,11 +12,12 @@ export class PublicationService {
   getPublications() {
     this.http.get(environment.API_BASE_URL + '/listPublications', {
       headers: new HttpHeaders()
-        .set('user_id', JSON.parse(localStorage.getItem('userProfile')).id)
+        .set('user_id', JSON.parse(localStorage.getItem('userProfile')).data.id)
         .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('currentUser')).access_token)
     }).subscribe(res => {
-      console.log('publications list ', res.data);
-      localStorage.setItem('publicationsList', JSON.stringify(res.data));
+      localStorage.setItem('publicationsList', JSON.stringify(res));
+
+      console.log('publicationList', localStorage.getItem('publicationsList'), 2);
     });
   }
 }

@@ -17,6 +17,6 @@ export class PublicationsComponent implements OnInit {
 
   ngOnInit() {
     this.publicationSerice.getPublications();
-    this.publications = JSON.parse(localStorage.getItem('publicationsList'));
+    this.publications = JSON.parse(localStorage.getItem('publicationsList')).data;
   }
 }
