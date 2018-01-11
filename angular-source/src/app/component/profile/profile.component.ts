@@ -29,14 +29,4 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  listPublications() {
-    this.router.navigate(['/publications']);
-  }
-
-  logout() {
-    console.log('Logging out');
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
 }
