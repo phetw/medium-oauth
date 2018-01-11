@@ -4,3 +4,8 @@
   padding: 0px !important;
   box-sizing: border-box!important;
 }
+
+.content {
+  padding-top: 4.5em;
+  background-color: rgb(228, 228, 228)!important;
+}
