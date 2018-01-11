@@ -11,7 +11,7 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     },
     { path: 'login', component: LoginComponent },
-    { path: 'profile', component: ProfileComponent },
+    // { path: 'profile', component: ProfileComponent },
     { path: 'publications', component: PublicationsComponent },
 ];
 
