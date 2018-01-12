@@ -5,6 +5,10 @@ const cors = require('cors');
 
 var request = require('request');
 
+import {
+    environment
+} from './angular-source/src/environments/environment';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -28,10 +32,10 @@ app.get('/getAccessToken', (req, res) => {
         url: 'https://api.medium.com/v1/tokens',
         form: {
             code: req.query.code,
-            client_id: '5425e5ae4e52',
-            client_secret: '65f35242d392cc32a695e2ba98e575fee7079cd3',
+            client_id: environment.API_SECRET.clientId,
+            client_secret: environment.API_SECRET.clientSecret,
             grant_type: 'authorization_code',
-            redirect_uri: 'http://127.0.0.1:4200/login'
+            redirect_uri: environment.redirectUri
         }
     }, (err, httpResponse, body) => {
         res.send(body);
