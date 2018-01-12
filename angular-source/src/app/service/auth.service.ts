@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, Params } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -12,7 +12,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
   ) { }
 
   requestAccessToken(code) {
@@ -35,7 +34,6 @@ export class AuthService {
 
   logout() {
     // Clearing localStorage
-
     this.router.navigate(['/login']);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userProfile');
