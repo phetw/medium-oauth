@@ -1,7 +1,7 @@
 <mat-card class="card-alignment">
   <img mat-card-image [src]="profile.imageUrl" [alt]="img">
-  <mat-card-title>{{profile.name}}</mat-card-title>
+  <mat-card-title class="name">{{profile.name}}</mat-card-title>
   <mat-card-subtitle>
-    <a href="{{profile.url}}" target="_blank" class="title">@{{profile.username}}</a>
+    <a href="{{profile.url}}" target="_blank">@{{profile.username}}</a>
   </mat-card-subtitle>
 </mat-card>
