@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-// Component
+
+// Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { PublicationsComponent } from './component/publications/publications.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 import { AppRouter } from './route/route';
 
@@ -27,7 +29,6 @@ import {
   MatIconModule,
   MatListModule,
 } from '@angular/material';
-import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
