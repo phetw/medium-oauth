@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PublicationService } from '../../service/publication.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { PublicationService } from '../../service/publication.service';
   templateUrl: './publications.component.html',
   styleUrls: ['./publications.component.css']
 })
-export class PublicationsComponent implements OnInit {
+export class PublicationsComponent {
 
   publications: any;
 
@@ -14,8 +14,5 @@ export class PublicationsComponent implements OnInit {
     this.publicationSerice.getPublications().subscribe(publicationList => {
       this.publications = JSON.parse(localStorage.getItem('publicationsList')).data;
     });
-  }
-
-  ngOnInit() {
   }
 }
