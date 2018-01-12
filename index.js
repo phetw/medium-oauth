@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
 var request = require('request');
 
 const app = express();
@@ -26,7 +27,6 @@ app.get('/getAccessToken', (req, res) => {
     request.post({
         url: 'https://api.medium.com/v1/tokens',
         form: {
-            // Dynamic
             code: req.query.code,
             client_id: '5425e5ae4e52',
             client_secret: '65f35242d392cc32a695e2ba98e575fee7079cd3',
@@ -43,7 +43,6 @@ app.get('/getUserDetail', (req, res) => {
     request.get({
         url: 'https://api.medium.com/v1/me',
         headers: {
-            // Dynamic
             'Authorization': req.get('Authorization'),
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -55,12 +54,9 @@ app.get('/getUserDetail', (req, res) => {
 })
 
 app.get('/listPublications', (req, res) => {
-    // 1af639ff52d2f8e1aa52ee42b42e211a6f5a2d05dadf2a0ef8991173bd4f6075f
     request.get({
-        // Dynamic
         url: 'https://api.medium.com/v1/users/' + req.get('user_id') + '/publications',
         headers: {
-            // Dynamic
             'Authorization': req.get('Authorization'),
             'Content-Type': 'application/json',
             'Accept': 'application/json'
