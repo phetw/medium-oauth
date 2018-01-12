@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { PublicationsComponent } from './component/publications/publications.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
 
 import { AppRouter } from './route/route';
 
