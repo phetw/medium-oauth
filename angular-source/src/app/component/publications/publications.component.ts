@@ -10,11 +10,12 @@ import { Publication } from '../../model/publication';
 })
 export class PublicationsComponent {
 
-  publications: Publication;
+  publications: Publication[];
 
   constructor(public publicationSerice: PublicationService) {
     this.publicationSerice.getPublications().subscribe(publicationList => {
       this.publications = JSON.parse(localStorage.getItem('publicationsList')).data;
+      console.log(this.publications);
     });
   }
 }
