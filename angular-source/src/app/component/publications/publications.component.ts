@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PublicationService } from '../../service/publication.service';
 
+import { Publication } from '../../model/publication';
+
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.component.html',
@@ -8,7 +10,7 @@ import { PublicationService } from '../../service/publication.service';
 })
 export class PublicationsComponent {
 
-  publications: any;
+  publications: Publication;
 
   constructor(public publicationSerice: PublicationService) {
     this.publicationSerice.getPublications().subscribe(publicationList => {
