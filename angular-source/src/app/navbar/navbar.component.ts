@@ -7,17 +7,11 @@ import { AuthService } from '../service/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
+  didUserLoggedIn = localStorage.getItem('accessToken') ? true : false;
+
   constructor(private authSerice: AuthService) { }
 
   ngOnInit() {
-  }
-
-  didUserLoggedIn() {
-    if (localStorage.getItem('accessToken')) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   logout() {
