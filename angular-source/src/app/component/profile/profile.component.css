@@ -1,7 +1,11 @@
 .card-alignment {
   margin: auto!important;
-  width: 70%!important;
+  width: 82%!important;
   margin-top: 0.4em!important;
+}
+
+.name {
+  text-align: center;
 }
 
 .mat-card-image {

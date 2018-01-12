@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, Params } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -12,10 +12,10 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
   ) { }
 
   requestAccessToken(code) {
+    // Use temporary auth code to get 60 days access token
     return this.http.get(environment.API_BASE_URL + '/getAccessToken?code=' + code).map((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res));
       return res;
@@ -35,10 +35,7 @@ export class AuthService {
 
   logout() {
     // Clearing localStorage
-
     this.router.navigate(['/login']);
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userProfile');
-    localStorage.removeItem('publicationsList');
+    localStorage.clear();
   }
 }
