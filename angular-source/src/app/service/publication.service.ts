@@ -16,8 +16,7 @@ export class PublicationService {
         .set('user_id', JSON.parse(localStorage.getItem('userProfile')).data.id)
         .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')).access_token)
     }).map(res => {
-      localStorage.setItem('publicationsList', JSON.stringify(res));
-      return res;
+      return res['data'];
     });
   }
 }

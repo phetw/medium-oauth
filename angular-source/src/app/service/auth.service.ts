@@ -15,7 +15,6 @@ export class AuthService {
   ) { }
 
   requestAccessToken(code) {
-    // Use temporary auth code to get 60 days access token
     return this.http.get(environment.API_BASE_URL + '/getAccessToken?code=' + code).map((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res));
       return res;
