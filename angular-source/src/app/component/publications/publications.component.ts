@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PublicationService } from '../../service/publication.service';
-
+import { Observable } from 'rxjs/Observable';
 import { Publication } from '../../model/publication';
 
 @Component({
@@ -10,11 +10,9 @@ import { Publication } from '../../model/publication';
 })
 export class PublicationsComponent {
 
-  publications: Publication[];
+  public publications: Observable<Publication[]>;
 
   constructor(public publicationSerice: PublicationService) {
-    this.publicationSerice.getPublications().subscribe(publicationList => {
-      this.publications = JSON.parse(localStorage.getItem('publicationsList')).data;
-    });
+    this.publications = this.publicationSerice.getPublications();
   }
 }
