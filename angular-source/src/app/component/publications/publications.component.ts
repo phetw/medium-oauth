@@ -12,7 +12,7 @@ export class PublicationsComponent {
 
   public publications: Observable<Publication[]>;
 
-  constructor(public publicationSerice: PublicationService) {
-    this.publications = this.publicationSerice.getPublications();
+  constructor(public publicationService: PublicationService) {
+    this.publications = this.publicationService.getPublications();
   }
 }
