@@ -2,7 +2,7 @@
   <app-profile></app-profile>
 </div>
 <div class="publications">
-  <div *ngFor="let publication of publications" class="divider">
+  <div *ngFor="let publication of publications | async" class="divider">
     <mat-card>
       <mat-card-header>
         <img mat-card-avatar [src]="publication.imageUrl" alt="">

@@ -15,7 +15,6 @@ export class AuthService {
   ) { }
 
   requestAccessToken(code) {
-    // Use temporary auth code to get 60 days access token
     return this.http.get(environment.API_BASE_URL + '/getAccessToken?code=' + code).map((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res));
       return res;
@@ -33,8 +32,30 @@ export class AuthService {
       });
   }
 
+  checkTokenExpiry(): Boolean {
+    const expire_date = new Date(JSON.parse(localStorage.getItem('accessToken'))['expires_at']);
+    const current_date = new Date();
+
+    if (current_date >= expire_date) {
+      console.log('token is expired');
+      return true;
+    } else {
+      console.log('token is usable');
+      return false;
+    }
+  }
+
+  getNewToken(refreshToken) {
+    return this.http.get(environment.API_BASE_URL + '/refreshToken', {
+      headers: new HttpHeaders()
+        .set('refresh_token', refreshToken)
+    }).map((res) => {
+      localStorage.setItem('accessToken', JSON.stringify(res));
+      return res;
+    });
+  }
+
   logout() {
-    // Clearing localStorage
     this.router.navigate(['/login']);
     localStorage.clear();
   }
