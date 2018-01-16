@@ -30,14 +30,30 @@ app.get('/getAccessToken', (req, res) => {
             code: req.query.code,
             client_id: API_CONFIG.clientId,
             client_secret: API_CONFIG.clientSecret,
-            grant_type: API_CONFIG.grantType,
+            grant_type: 'authorization_code',
             redirect_uri: API_CONFIG.redirectUri
+        }
+    }, (err, httpResponse, body) => {
+
+        res.send(body);
+        console.log(body);
+    })
+});
+
+app.get('/refreshToken', (req, res) => {
+    request.post({
+        url: API_CONFIG.endPoint + '/tokens',
+        form: {
+            refresh_token: req.get('refresh_token'),
+            client_id: API_CONFIG.clientId,
+            client_secret: API_CONFIG.clientSecret,
+            grant_type: 'refresh_token',
         }
     }, (err, httpResponse, body) => {
         res.send(body);
         console.log(body);
     })
-});
+})
 
 app.get('/getUserDetail', (req, res) => {
     request.get({
@@ -63,7 +79,6 @@ app.get('/listPublications', (req, res) => {
         }
     }, (err, httpResponse, body) => {
         res.send(body);
-        console.log(body);
     })
 })
 
