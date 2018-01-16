@@ -25,10 +25,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.tempAuthCode) {
       this.subscribers.token = this.authService.requestAccessToken(this.tempAuthCode).subscribe(accessToken => {
         this.subscribers.profile = this.authService.getUserProfile(accessToken).subscribe(() => {
-          this.router.navigate(['/publications']);
+          if (!this.authService.checkTokenExpiry()) {
+            this.router.navigate(['/publications']);
+          } else {
+            this.requestNewToken(accessToken);
+          }
         });
       });
     }
+  }
+
+  requestNewToken(accessToken) {
+    this.subscribers.refresh = this.authService.getNewToken(accessToken['refresh_token']).subscribe((newAccessToken) => {
+      this.router.navigate(['/publications']);
+    });
   }
 
   checkIfUrlContainsTempCode() {
@@ -40,7 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   askMediumPermission() {
-    const parentWindow = window.open(environment.GET_TEMP_CODE, '_blank');
+    const parentWindow = window.open(environment.GET_TEMP_CODE);
     window.close();
   }
 
@@ -48,5 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     // Prevent memory leaks
     this.subscribers.token.unsubscribe();
     this.subscribers.profile.unsubscribe();
+
+    if (this.subscribers.refresh) { this.subscribers.refresh.unsubscribe(); }
   }
 }
