@@ -6,7 +6,7 @@ import { PublicationsComponent } from '../component/publications/publications.co
 import { AuthGuard } from '../guard/auth.guard';
 
 const appRoutes: Routes = [
-    { path: '**', redirectTo: '/login' },
+    // 404
     { path: 'login', component: LoginComponent },
     { path: 'publications', component: PublicationsComponent, canActivate: [AuthGuard] },
 ];
