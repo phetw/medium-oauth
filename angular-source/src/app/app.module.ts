@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
@@ -12,6 +12,8 @@ import { PublicationsComponent } from './component/publications/publications.com
 import { NavbarComponent } from './component/navbar/navbar.component';
 
 import { AppRouter } from './route/route';
+
+import { AccessTokenHttpInterceptor } from './interceptor/interceptor';
 
 // Services
 import { AuthService } from './service/auth.service';
@@ -72,7 +74,12 @@ import { Effect } from '@ngrx/effects/src/effects_metadata';
   providers: [
     AuthGuard,
     AuthService,
-    PublicationService
+    PublicationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenHttpInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

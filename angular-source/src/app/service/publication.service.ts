@@ -16,9 +16,10 @@ export class PublicationService {
     return this.http.get(environment.API_BASE_URL + '/listPublications', {
       headers: new HttpHeaders()
         .set('user_id', userId)
-        .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')).access_token)
+      // .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')).access_token)
     }).map(res => {
       // localStorage.setItem('publicationList', JSON.stringify(res['data']));
+      console.log('publist', res['data']);
       return res['data'];
     }).catch((error: any) => {
       console.error('ERROR', error);
