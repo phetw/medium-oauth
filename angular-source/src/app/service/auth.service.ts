@@ -3,7 +3,9 @@ import { Router, Params } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
-
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -14,33 +16,22 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  requestAccessToken(code) {
-    // Use temporary auth code to get 60 days access token
+  requestAccessToken(code): Observable<any> {
     return this.http.get(environment.API_BASE_URL + '/getAccessToken?code=' + code).map((res) => {
       localStorage.setItem('accessToken', JSON.stringify(res));
       return res;
-<<<<<<< Updated upstream
-=======
     }).catch((error: any) => {
       console.error('ERROR', error);
       return Observable.throw(new Error(error.errors));
->>>>>>> Stashed changes
     });
   }
 
-  getUserProfile(accessToken) {
+  getUserProfile(): Observable<any> {
     return this.http.get(environment.API_BASE_URL + '/getUserDetail',
       {
         headers: new HttpHeaders()
-          .set('Authorization', 'Bearer ' + accessToken.access_token)
       }).map((res) => {
-        localStorage.setItem('userProfile', JSON.stringify(res));
         return res;
-<<<<<<< Updated upstream
-      });
-  }
-
-=======
       }).catch((error: any) => {
         console.error('ERROR', error);
         return Observable.throw(new Error(error.errors));
@@ -73,9 +64,7 @@ export class AuthService {
     });
   }
 
->>>>>>> Stashed changes
   logout() {
-    // Clearing localStorage
     this.router.navigate(['/login']);
     localStorage.clear();
   }

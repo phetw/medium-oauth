@@ -1,0 +1,6 @@
+{
+    "endPoint": "https://api.medium.com/v1",
+    "clientId": "5425e5ae4e52",
+    "clientSecret": "65f35242d392cc32a695e2ba98e575fee7079cd3",
+    "redirectUri": "http://127.0.0.1:4200/login"
+}

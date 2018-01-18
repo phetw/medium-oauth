@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
@@ -13,11 +13,23 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 
 import { AppRouter } from './route/route';
 
+import { AccessTokenHttpInterceptor } from './interceptor/interceptor';
+
 // Services
 import { AuthService } from './service/auth.service';
 import { PublicationService } from './service/publication.service';
 
 import { AuthGuard } from './guard/auth.guard';
+
+// Store
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers/index';
+import { EffectsModule } from '@ngrx/effects';
+
+// Effects
+import { AuthEffects } from './effects/auth.effect';
+import { UserEffects } from './effects/user.effect';
+import { PublicationEffects } from './effects/publication.effect';
 
 // Angular material lib
 import {
@@ -29,6 +41,7 @@ import {
   MatIconModule,
   MatListModule,
 } from '@angular/material';
+import { Effect } from '@ngrx/effects/src/effects_metadata';
 
 @NgModule({
   declarations: [
@@ -51,11 +64,22 @@ import {
     MatCardModule,
     MatIconModule,
     MatListModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+      AuthEffects,
+      UserEffects,
+      PublicationEffects,
+    ])
   ],
   providers: [
     AuthGuard,
     AuthService,
-    PublicationService
+    PublicationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenHttpInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
