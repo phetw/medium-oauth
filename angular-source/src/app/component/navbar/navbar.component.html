@@ -1,7 +1,7 @@
 <mat-toolbar>
   <span>Medium OAuth2.0 + Angular</span>
   <span class="fill-remaining-space"></span>
-  <span *ngIf="didUserLoggedIn">
+  <div [hidden]="!didUserLoggedIn">
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -15,5 +15,5 @@
         <span>Logout</span>
       </button>
     </mat-menu>
-  </span>
+  </div>
 </mat-toolbar>

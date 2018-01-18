@@ -58,6 +58,15 @@ export function reducer(state = initialState, action = act.Actions): State {
                 isTokenExpired: true
             };
         }
+        case act.USER_LOGOUT: {
+            console.log('logging out');
+            return {
+                tempAuthCodeValid: false,
+                didCheckTokenExpire: false,
+                isLoggedIn: false,
+                isTokenExpired: false
+            };
+        }
         default: {
             return state;
         }

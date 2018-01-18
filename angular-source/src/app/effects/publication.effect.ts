@@ -25,7 +25,8 @@ export class PublicationEffects {
         .ofType(act.LOAD_PUBLICATION)
         .withLatestFrom(this.store)
         .mergeMap((data) => {
-            return this.publicationService.getPublications(data[1].user.userProfile.id)
+            const userStore = data[1].user;
+            return this.publicationService.getPublications(userStore.userProfile.id)
                 .map((publicationList) => new act.LoadPublicationSuccess({ data: publicationList }))
                 .catch((error) => {
                     return [new act.LoadPublicationFailed({ error: error })];

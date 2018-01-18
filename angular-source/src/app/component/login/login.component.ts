@@ -28,15 +28,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.checkIfUrlContainsTempCode();
     if (this.tempAuthCode) {
       this.store.dispatch({ type: TEMP_AUTH_CODE_VALID, payload: { code: this.tempAuthCode } });
-
       this.subscription.selectStore = this.store.select(fromRoot.reducers.auth).subscribe((data: any) => {
         console.log('Auth store', data.auth);
         if (data.auth.isLoggedIn && !data.auth.didCheckTokenExpire) {
-          this.checkTokenExpiry(data.auth.isLoggedIn, !data.auth.didCheckTokenExpire);
+          this.checkTokenExpiry();
         }
       });
     } else {
-      this.store.dispatch({ type: TEMP_AUTH_CODE_INVALID, payload: { error: 'Code not available' } });
+      this.store.dispatch({ type: TEMP_AUTH_CODE_INVALID, payload: { error: 'Authorizatio code not available' } });
     }
   }
 
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkTokenExpiry(isLoggedIn: Boolean, didCheckTokenExpire: Boolean) {
+  checkTokenExpiry() {
     this.store.dispatch({ type: CHECK_TOKEN_EXPIRE });
     this.router.navigate(['/publications']);
   }

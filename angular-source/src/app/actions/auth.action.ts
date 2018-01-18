@@ -11,6 +11,8 @@ export const CHECK_TOKEN_EXPIRE = '[Auth] Check token expiry date';
 export const ACCESS_TOKEN_VALID = '[Auth] Access valid';
 export const ACCESS_TOKEN_EXPIRED = '[Auth] Access expired';
 
+export const USER_LOGOUT = '[Auth] User logout';
+
 export class GetTemporaryAuthCodeSuccess implements Action {
     readonly type = TEMP_AUTH_CODE_VALID;
     constructor(public payload: any) { }
@@ -42,10 +44,15 @@ export class AccessTokenExpired implements Action {
     readonly type = ACCESS_TOKEN_EXPIRED;
 }
 
+export class UserLogout implements Action {
+    readonly type = USER_LOGOUT;
+}
+
 export type Actions =
     GetTemporaryAuthCodeSuccess |
     GetTemporaryAuthCodeFailed |
     UserLoginSuccess |
     UserLoginFailed |
     AccessTokenValid |
-    AccessTokenExpired;
+    AccessTokenExpired |
+    UserLogout;
