@@ -22,7 +22,7 @@ export class AuthService {
       return res;
     }).catch((error: any) => {
       console.error('ERROR', error);
-      return Observable.throw(new Error(error.status));
+      return Observable.throw(new Error(error.errors));
     });
   }
 
@@ -30,13 +30,11 @@ export class AuthService {
     return this.http.get(environment.API_BASE_URL + '/getUserDetail',
       {
         headers: new HttpHeaders()
-        // .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('accessToken'))['access_token'])
       }).map((res) => {
-        // localStorage.setItem('userProfile', JSON.stringify(res['data']));
         return res;
       }).catch((error: any) => {
         console.error('ERROR', error);
-        return Observable.throw(new Error(error.status));
+        return Observable.throw(new Error(error.errors));
       });
   }
 
@@ -62,7 +60,7 @@ export class AuthService {
       return res;
     }).catch((error: any) => {
       console.error('ERROR', error);
-      return Observable.throw(new Error(error.status));
+      return Observable.throw(new Error(error.errors));
     });
   }
 
