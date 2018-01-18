@@ -1,7 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../service/auth.service';
+import 'rxjs/add/operator/catch';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../reducers';
+import * as reducer from '../../reducers/auth.reducer';
+import { CHECK_TOKEN_EXPIRE, TEMP_AUTH_CODE_VALID, TEMP_AUTH_CODE_INVALID } from '../../actions/auth.action';
 
 @Component({
   selector: 'app-login',
@@ -10,35 +15,29 @@ import { AuthService } from '../../service/auth.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  tempAuthCode: String = '';
-  public subscribers: any = {};
-
+  tempAuthCode: String;
+  subscription: any = {};
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService,
+    private store: Store<reducer.State>
   ) { }
+
 
   ngOnInit() {
     this.checkIfUrlContainsTempCode();
-
     if (this.tempAuthCode) {
-      this.subscribers.token = this.authService.requestAccessToken(this.tempAuthCode).subscribe(accessToken => {
-        this.subscribers.profile = this.authService.getUserProfile(accessToken).subscribe(() => {
-          if (!this.authService.checkTokenExpiry()) {
-            this.router.navigate(['/publications']);
-          } else {
-            this.requestNewToken(accessToken);
-          }
-        });
-      });
-    }
-  }
+      this.store.dispatch({ type: TEMP_AUTH_CODE_VALID, payload: { code: this.tempAuthCode } });
 
-  requestNewToken(accessToken) {
-    this.subscribers.refresh = this.authService.getNewToken(accessToken['refresh_token']).subscribe((newAccessToken) => {
-      this.router.navigate(['/publications']);
-    });
+      this.subscription.selectStore = this.store.select(fromRoot.reducers.auth).subscribe((data: any) => {
+        console.log('Auth store', data.auth);
+        if (data.auth.isLoggedIn && !data.auth.didCheckTokenExpire) {
+          this.checkTokenExpiry(data.auth.isLoggedIn, !data.auth.didCheckTokenExpire);
+        }
+      });
+    } else {
+      this.store.dispatch({ type: TEMP_AUTH_CODE_INVALID, payload: { error: 'Code not available' } });
+    }
   }
 
   checkIfUrlContainsTempCode() {
@@ -49,16 +48,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  checkTokenExpiry(isLoggedIn: Boolean, didCheckTokenExpire: Boolean) {
+    this.store.dispatch({ type: CHECK_TOKEN_EXPIRE });
+    this.router.navigate(['/publications']);
+  }
+
+
   askMediumPermission() {
     const parentWindow = window.open(environment.GET_TEMP_CODE);
     window.close();
   }
 
   ngOnDestroy() {
-    // Prevent memory leaks
-    this.subscribers.token.unsubscribe();
-    this.subscribers.profile.unsubscribe();
-
-    if (this.subscribers.refresh) { this.subscribers.refresh.unsubscribe(); }
+    this.subscription.selectStore.unsubscribe();
   }
 }

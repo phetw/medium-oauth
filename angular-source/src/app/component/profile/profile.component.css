@@ -9,6 +9,10 @@
   text-align: center!important;
 }
 
+.mat-card-title {
+  font-size: 1.4rem;
+}
+
 .mat-card-image {
   border-radius: 50%;
   width: 75%;

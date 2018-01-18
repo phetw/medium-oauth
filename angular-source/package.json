@@ -27,6 +27,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^4.1.1",
     "@ngrx/store": "^4.1.1",
+    "@types/es6-shim": "^0.31.35",
     "core-js": "^2.4.1",
     "ng-http-loader": "^0.6.0",
     "rxjs": "^5.5.2",
