@@ -2,15 +2,20 @@
   <app-profile></app-profile>
 </div>
 <div class="publications">
-  <div *ngFor="let publication of publications | async" class="divider">
-    <mat-card>
-      <mat-card-header>
-        <img mat-card-avatar [src]="publication.imageUrl" alt="">
-        <mat-card-title>
-          <a href="{{publication.url}}" target="_blank">{{publication.name}}</a>
-        </mat-card-title>
-        <mat-card-subtitle>{{publication.description}}</mat-card-subtitle>
-      </mat-card-header>
-    </mat-card>
+  <div *ngIf="publications?.length > 0">
+    <div *ngFor="let publication of publications" class="divider">
+      <mat-card>
+        <mat-card-header>
+          <img mat-card-avatar [src]="publication.imageUrl" alt="">
+          <mat-card-title>
+            <a href="{{publication.url}}" target="_blank">{{publication.name}}</a>
+          </mat-card-title>
+          <mat-card-subtitle>{{publication.description}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="publications?.length == 0">
+    <p>You have no publications</p>
   </div>
 </div>

@@ -19,6 +19,16 @@ import { PublicationService } from './service/publication.service';
 
 import { AuthGuard } from './guard/auth.guard';
 
+// Store
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers/index';
+import { EffectsModule } from '@ngrx/effects';
+
+// Effects
+import { AuthEffects } from './effects/auth.effect';
+import { UserEffects } from './effects/user.effect';
+import { PublicationEffects } from './effects/publication.effect';
+
 // Angular material lib
 import {
   MatToolbarModule,
@@ -29,6 +39,7 @@ import {
   MatIconModule,
   MatListModule,
 } from '@angular/material';
+import { Effect } from '@ngrx/effects/src/effects_metadata';
 
 @NgModule({
   declarations: [
@@ -51,6 +62,12 @@ import {
     MatCardModule,
     MatIconModule,
     MatListModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+      AuthEffects,
+      UserEffects,
+      PublicationEffects,
+    ])
   ],
   providers: [
     AuthGuard,

@@ -1,23 +1,43 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Profile } from '../../model/profile';
+
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../../reducers';
+import * as reducer from '../../reducers/user.reducer';
+import { LOAD_PROFILE } from '../../actions/user.action';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   profile: Profile;
+  subscription: any = {};
 
   constructor(
-    private router: Router,
-    private authService: AuthService
+    private store: Store<reducer.State>
   ) {
-    if (JSON.parse(localStorage.getItem('userProfile'))) {
-      this.profile = JSON.parse(localStorage.getItem('userProfile')).data;
-    }
+    this.profile = reducer.initialState.userProfile;
+  }
+
+  ngOnInit() {
+    this.checkStore();
+    this.store.dispatch({ type: LOAD_PROFILE });
+  }
+
+  checkStore() {
+    this.subscription.selectStore = this.store.select(fromRoot.reducers.user).subscribe((data: any) => {
+      console.log('User store', data.user);
+      if (data.user.profileLoaded) {
+        this.profile = data.user.userProfile;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.selectStore.unsubscribe();
   }
 }
