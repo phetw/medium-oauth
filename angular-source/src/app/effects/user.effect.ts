@@ -8,7 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { AuthService } from '../service/auth.service';
-import * as act from '../actions/user.action';
+import * as userAction from '../actions/user.action';
+import * as publicationAction from '../actions/publication.action';
+
 import * as reducer from '../reducers/user.reducer';
 
 @Injectable()
@@ -22,10 +24,12 @@ export class UserEffects {
 
     @Effect()
     loadUserProfile$: Observable<Action> = this.actions$
-        .ofType(act.LOAD_PROFILE)
+        .ofType(userAction.LOAD_PROFILE)
         .switchMap(() =>
-            this.authService.getUserProfile().map((userProfile) => new act.LoadProfileSuccess({ data: userProfile }))
-        ).catch((error) => {
-            return [new act.LoadProfileFailed({ error: error })];
+            this.authService.getUserProfile().map((userProfile) => userProfile)
+        ).mergeMap((data) => {
+            return [new userAction.LoadProfileSuccess({ data: data }), new publicationAction.LoadPublication()];
+        }).catch((error) => {
+            return [new userAction.LoadProfileFailed({ error: error })];
         });
 }
