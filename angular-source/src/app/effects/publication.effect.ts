@@ -10,7 +10,6 @@ import { Actions, Effect, } from '@ngrx/effects';
 import { PublicationService } from '../service/publication.service';
 import * as act from '../actions/publication.action';
 import * as reducer from '../reducers/user.reducer';
-import { LOAD_PUBLICATION_FAILED } from '../actions/publication.action';
 
 @Injectable()
 export class PublicationEffects {
@@ -25,6 +24,7 @@ export class PublicationEffects {
     loadPublicationList$: Observable<Action> = this.actions$
         .ofType(act.LOAD_PUBLICATION)
         .withLatestFrom(this.store)
+        // Get userId from user.store
         // tslint:disable-next-line:no-shadowed-variable
         .mergeMap(([Action, reducer]) => {
             console.log('reducer', reducer);
