@@ -15,7 +15,7 @@ import { CHECK_TOKEN_EXPIRE, TEMP_AUTH_CODE_VALID, TEMP_AUTH_CODE_INVALID } from
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  tempAuthCode: String = '';
+  tempAuthCode: String;
   subscription: any = {};
   constructor(
     private router: Router,

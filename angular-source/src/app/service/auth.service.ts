@@ -32,7 +32,7 @@ export class AuthService {
         headers: new HttpHeaders()
           .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('accessToken'))['access_token'])
       }).map((res) => {
-        localStorage.setItem('userProfile', JSON.stringify(res['data']));
+        // localStorage.setItem('userProfile', JSON.stringify(res['data']));
         return res;
       }).catch((error: any) => {
         console.error('ERROR', error);

@@ -33,7 +33,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     this.subscription.selectStore = this.store.select(fromRoot.reducers.publication).subscribe((data: any) => {
       console.log('Pub store', data.publication);
       if (data.user.profileLoaded && data.publication.publicationLoaded) {
-        this.publications = JSON.parse(localStorage.getItem('publicationList'));
+        this.publications = data.publication.publicationList;
       }
     });
   }

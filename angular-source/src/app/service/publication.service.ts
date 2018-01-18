@@ -18,7 +18,7 @@ export class PublicationService {
         .set('user_id', userId)
         .set('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('accessToken')).access_token)
     }).map(res => {
-      localStorage.setItem('publicationList', JSON.stringify(res['data']));
+      // localStorage.setItem('publicationList', JSON.stringify(res['data']));
       return res['data'];
     }).catch((error: any) => {
       console.error('ERROR', error);
